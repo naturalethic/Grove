@@ -1,4 +1,3 @@
-import { build } from "esbuild";
 import express from "express";
 import { createServer } from "vite";
 
@@ -9,17 +8,9 @@ export default async function () {
         appType: "custom",
     });
     vite.middlewares.use(async (request, response, next) => {
-        if (request.url === "/client") {
-            const result = await build({
-                entryPoints: ["src/web/client.tsx"],
-                bundle: true,
-                write: false,
-            });
-            response.setHeader("Content-Type", "application/javascript");
-            response.end(result.outputFiles?.[0].text);
-        } else {
-            next();
-        }
+        console.info(`<-- ${request.method} ${request.url}`);
+        await next();
+        console.info(`--> ${request.method} ${request.url}`);
     });
     app.use(vite.middlewares);
     app.use("*", async (req, res, next) => {
