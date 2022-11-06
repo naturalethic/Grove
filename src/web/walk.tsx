@@ -1,8 +1,13 @@
-import { lazy, Suspense } from "react";
+import { createElement, lazy, Suspense } from "react";
 
-export default function walk(tree: string[], index = 0) {
-    const path = `../../app/web${tree.slice(0, index + 1).join("/")}/index.tsx`;
-    const Component = lazy(() => import(path));
+export default function walk(tree: string[], index = 0): any {
+    const path = tree
+        .slice(0, index + 1)
+        .join("/")
+        .substring(1);
+    const Component = path
+        ? lazy(() => import(`../../app/web/${path}/index.tsx`))
+        : lazy(() => import("../../app/web"));
     if (index === tree.length - 1) {
         return <Component />;
     }
