@@ -1,6 +1,17 @@
 import { createElement, lazy, Suspense } from "react";
 
-export default function walk(tree: string[], index = 0): any {
+export default function walk(url: string): any;
+export default function walk(tree: string[], index: number): any;
+export default function walk(
+    url_or_tree: string | string[],
+    index: number = 0,
+): any {
+    if (typeof url_or_tree === "string") {
+        const url = url_or_tree as string;
+        const tree = url.split("/").filter(Boolean);
+        return walk([""].concat(tree), 0);
+    }
+    const tree = url_or_tree as string[];
     const path = tree
         .slice(0, index + 1)
         .join("/")

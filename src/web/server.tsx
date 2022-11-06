@@ -3,6 +3,6 @@ import { renderToPipeableStream } from "react-dom/server";
 import walk from "./walk";
 
 export async function render(url: string) {
-    const content = walk(url.split("/"));
+    const content = walk(url);
     return renderToPipeableStream(<Html>{content}</Html>);
 }
