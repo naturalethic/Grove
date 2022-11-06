@@ -18,7 +18,7 @@ export default function walk(
         .substring(1);
     const Component = path
         ? lazy(() => import(`../../app/web/${path}/index.tsx`))
-        : lazy(() => import("../../app/web"));
+        : lazy(() => import("../../app/web/index"));
     if (index === tree.length - 1) {
         return <Component />;
     }

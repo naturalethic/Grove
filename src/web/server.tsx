@@ -1,8 +1,19 @@
-import Html from "/app/web/html";
 import { renderToPipeableStream } from "react-dom/server";
-import walk from "./walk";
+import { Route, Routes } from "react-router-dom";
+import { StaticRouter } from "react-router-dom/server";
+import Html from "./html";
+import routes from "./routes";
 
 export async function render(url: string) {
-    const content = walk(url);
-    return renderToPipeableStream(<Html>{content}</Html>);
+    return renderToPipeableStream(
+        <Html>
+            <StaticRouter location={url}>
+                <Routes>
+                    {Object.entries(routes).map(([path, Element]) => (
+                        <Route key={path} path={path} element={<Element />} />
+                    ))}
+                </Routes>
+            </StaticRouter>
+        </Html>,
+    );
 }
