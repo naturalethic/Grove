@@ -1,7 +1,7 @@
 export default function ({ children }: { children?: React.ReactNode }) {
     return (
         <div>
-            <div>Index</div>
+            <div>Admin</div>
             {children}
         </div>
     );

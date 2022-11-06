@@ -6,7 +6,8 @@
     "linter": {
         "rules": {
             "correctness": {
-                "noDelete": "off"
+                "noDelete": "off",
+                "noAsyncPromiseExecutor": "off"
             }
         }
     }
