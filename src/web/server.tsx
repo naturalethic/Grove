@@ -1,10 +1,6 @@
 import { renderToPipeableStream } from "react-dom/server";
-import { StaticRouter } from "react-router-dom/server";
-import Html from "./html";
-import { ServerRouter } from "./router";
+import Root from "./root";
 
 export async function render(url: string) {
-    return renderToPipeableStream(
-        <Html>{/* <ServerRouter url={url} /> */}</Html>,
-    );
+    return renderToPipeableStream(<Root />);
 }

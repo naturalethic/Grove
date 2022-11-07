@@ -1,37 +1,26 @@
-import { lazy, ReactElement } from "react";
-import {
-    createBrowserRouter,
-    Route,
-    RouteObject,
-    RouterProvider,
-    Routes,
-} from "react-router-dom";
-import { StaticRouter } from "react-router-dom/server";
+import { ReactLocation, Route, Router } from "@tanstack/react-location";
 
-function importRoutes(): RouteObject[] {
+function importRoutes(): Route[] {
     const routes = Object.entries(
         import.meta.glob("/app/web/**/[a-z[]*.tsx"),
     ).map(([path, element]) => {
         const [_, name] = path.match(/\/app\/web\/(.*)\.tsx/) ?? [];
         path = `/${name.replace(/(\/)?index$/, "")}`;
-        const Element = lazy(element as () => Promise<{ default: any }>);
         return {
             path,
-            element: <Element />,
+            element: () => element().then((mod: any) => <mod.default />),
             children: [],
             loader: (...args: any[]) =>
                 element().then((mod: any) => mod?.loader?.(...args)),
         };
     });
 
-    routes.sort((a: RouteObject, b: RouteObject) =>
-        a.path!.localeCompare(b.path!),
-    );
+    routes.sort((a: Route, b: Route) => a.path!.localeCompare(b.path!));
     return routes;
 }
 
-function buildRouteTree(routes: RouteObject[]): RouteObject {
-    let root: RouteObject;
+function buildRouteTree(routes: Route[]): Route {
+    let root: Route;
 
     routes.forEach((route) => {
         if (route.path === "/") {
@@ -50,29 +39,23 @@ function buildRouteTree(routes: RouteObject[]): RouteObject {
         }
     });
 
+    routes.forEach((route) => {
+        if (route.path === "/") {
+            return;
+        }
+        route.path = route.path!.split("/").pop();
+    });
+
     return root!;
 }
 
-function buildElementTree(route: RouteObject): ReactElement {
+export default function ({ children, location = new ReactLocation() }: {
+    children?: React.ReactNode;
+    location?: ReactLocation;
+}) {
     return (
-        <Route key={route.path} path={route.path} element={route.element}>
-            {route.children!.map(buildElementTree)}
-        </Route>
-    );
-}
-
-export function ClientRouter() {
-    return (
-        <RouterProvider
-            router={createBrowserRouter([buildRouteTree(importRoutes())])}
-        />
-    );
-}
-
-export function ServerRouter({ url }: { url: string }) {
-    return (
-        <StaticRouter location={url}>
-            <Routes>{buildElementTree(buildRouteTree(importRoutes()))}</Routes>
-        </StaticRouter>
+        <Router location={location} routes={[buildRouteTree(importRoutes())]}>
+            {children}
+        </Router>
     );
 }

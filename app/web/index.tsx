@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "@tanstack/react-location";
 
 const routes = Object.entries(import.meta.glob("/app/web/**/[a-z[]*.tsx")).map(
     ([path]) => {

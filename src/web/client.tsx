@@ -1,11 +1,4 @@
 import { hydrateRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import Html from "./html";
-import { ClientRouter } from "./router";
+import Root from "./root";
 
-hydrateRoot(
-    document,
-    <Html>
-        <ClientRouter />
-    </Html>,
-);
+hydrateRoot(document, <Root />);

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "@tanstack/react-location";
 
 export default function ({ children }: { children?: React.ReactNode }) {
     return (

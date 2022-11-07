@@ -1,6 +1,4 @@
-import { Suspense } from "react";
-
-export default function ({ children }: { children: React.ReactNode }) {
+export default function ({ children }: { children?: React.ReactNode }) {
     return (
         <html>
             <head>
@@ -26,9 +24,7 @@ export default function ({ children }: { children: React.ReactNode }) {
                 <script type="module" src="/@vite/client" />
                 <script type="module" src="/src/web/client.tsx" />
             </head>
-            <body>
-                <Suspense>{children}</Suspense>
-            </body>
+            <body>{children}</body>
         </html>
     );
 }
