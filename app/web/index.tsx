@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const routes = Object.entries(import.meta.glob("/app/web/**/[a-z[]*.tsx")).map(
     ([path]) => {
@@ -17,7 +17,7 @@ export default function ({ children }: { children?: React.ReactNode }) {
                 </div>
             ))}
             <hr />
-            {children}
+            <Outlet />
         </div>
     );
 }
