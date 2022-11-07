@@ -7,6 +7,10 @@ const routes = Object.entries(import.meta.glob("/app/web/**/[a-z[]*.tsx")).map(
     },
 );
 
+export const loader = () => {
+    console.log("LOAD");
+};
+
 export default function ({ children }: { children?: React.ReactNode }) {
     return (
         <div>
