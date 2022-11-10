@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 
-export default function ({ children }: { children: React.ReactNode }) {
+export function Html({ children }: { children: React.ReactNode }) {
     return (
         <html>
             <head>
-                <title>Grove</title>
+                <title>Tangerine: Kit</title>
                 <meta charSet="utf-8" />
                 <meta
                     name="viewport"
@@ -24,7 +24,7 @@ export default function ({ children }: { children: React.ReactNode }) {
                     }}
                 />
                 <script type="module" src="/@vite/client" />
-                <script type="module" src="/src/web/client.tsx" />
+                <script type="module" src="/src/client.tsx" />
             </head>
             <body>
                 <Suspense>{children}</Suspense>

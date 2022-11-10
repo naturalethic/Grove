@@ -10,9 +10,10 @@ import { StaticRouter } from "react-router-dom/server";
 
 function importRoutes(): RouteObject[] {
     const routes = Object.entries(
-        import.meta.glob("/app/web/**/[a-z[]*.tsx"),
+        import.meta.glob("/src/web/**/[a-z[]*.tsx"),
     ).map(([path, element]) => {
-        const [_, name] = path.match(/\/app\/web\/(.*)\.tsx/) ?? [];
+        console.log(path);
+        const [_, name] = path.match(/\/src\/web\/(.*)\.tsx/) ?? [];
         path = `/${name.replace(/(\/)?index$/, "")}`;
         const Element = lazy(element as () => Promise<{ default: any }>);
         return {

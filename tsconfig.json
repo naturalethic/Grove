@@ -7,16 +7,16 @@
         "module": "esnext",
         "target": "esnext",
         "strict": true,
-        "types": [
-            "vite/client"
-        ],
         "paths": {
-            "@grove/*": [
-                "./src/*"
-            ],
             "/*": [
                 "./*"
             ]
         },
-    }
+        "types": [
+            "vite/client"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ]
 }

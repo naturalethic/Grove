@@ -1,20 +1,21 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLoaderData } from "react-router-dom";
 
-const routes = Object.entries(import.meta.glob("/app/web/**/[a-z[]*.tsx")).map(
+const routes = Object.entries(import.meta.glob("/src/web/**/[a-z[]*.tsx")).map(
     ([path]) => {
         const [_, name] = path.match(/\/app\/web\/(.*)\.tsx/) ?? [];
         return name.replace(/(\/)?index$/, "");
     },
 );
 
-export const loader = () => {
-    console.log("LOAD");
+export const loader = async () => {
+    return { foo: "bar" };
 };
 
 export default function ({ children }: { children?: React.ReactNode }) {
+    const data = useLoaderData();
     return (
         <div>
-            <div>Index</div>
+            <div>Index: {data.foo}</div>
             {routes.map((path) => (
                 <div key={path}>
                     <Link to={path}>{path}</Link>
