@@ -12,7 +12,6 @@ function importRoutes(): RouteObject[] {
     const routes = Object.entries(
         import.meta.glob("/src/web/**/[a-z[]*.tsx"),
     ).map(([path, element]) => {
-        console.log(path);
         const [_, name] = path.match(/\/src\/web\/(.*)\.tsx/) ?? [];
         path = `/${name.replace(/(\/)?index$/, "")}`;
         const Element = lazy(element as () => Promise<{ default: any }>);
