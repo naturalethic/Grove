@@ -1,31 +1,18 @@
+import "./index.css";
 import { Link, Outlet, useLoaderData } from "react-router-dom";
 
-const routes = Object.entries(import.meta.glob("/src/web/**/[a-z]*.tsx")).map(
-    ([path]) => {
-        console.log(path);
-        const [_, name] = path.match(/\/src\/web\/(.*)\.tsx/) ?? [];
-        return name.replace(/(\/)?index$/, "");
-    },
-);
+// export const loader = async () => {
+//     return { foo: "bar" };
+// };
 
-routes.unshift("/");
-
-export const loader = async () => {
-    return { foo: "bar" };
-};
-
-export default function ({ children }: { children?: React.ReactNode }) {
-    const data = useLoaderData();
+export default function () {
+    // const data = useLoaderData();
     return (
-        <div>
-            <div>Index: {data.foo}</div>
-            {routes.map((path) => (
-                <div key={path}>
-                    <Link to={path}>{path}</Link>
-                </div>
-            ))}
-            <hr />
-            <Outlet />
+        <div className="flex flex-col items-center justify-center h-screen space-y-4 bg-zinc-700">
+            <div className="text-orange-600 text-6xl font-sacramento mb-10">
+                Tangerine
+            </div>
+            {/* <Outlet /> */}
         </div>
     );
 }

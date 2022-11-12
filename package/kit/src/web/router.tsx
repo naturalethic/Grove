@@ -8,6 +8,9 @@ import {
 } from "react-router-dom";
 import { StaticRouter } from "react-router-dom/server";
 
+// const environment = import.meta.glob("/src/web/environment.ts")[0];
+// console.log("ENVIRONMENT", environment);
+
 function importRoutes(): RouteObject[] {
     const routes = Object.entries(
         import.meta.glob("/src/web/**/[a-z[]*.tsx"),
@@ -19,8 +22,8 @@ function importRoutes(): RouteObject[] {
             path,
             element: <Element />,
             children: [],
-            loader: (...args: any[]) =>
-                element().then((mod: any) => mod?.loader?.(...args)),
+            // loader: (...args: any[]) =>
+            //     element().then((mod: any) => mod?.loader?.(...args)),
         };
     });
 
